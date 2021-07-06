@@ -91,9 +91,10 @@ trait Findable
             $this->connection()->setDivision($divisionId[1]); // Fix division
         }
 
-        $request = [
-            '$filter' => $filter,
-        ];
+        $request = [];
+        if ( !empty($filter)) {
+            $request ['$filter'] = $filter;
+        }
         if (strlen($expand) > 0) {
             $request['$expand'] = $expand;
         }
