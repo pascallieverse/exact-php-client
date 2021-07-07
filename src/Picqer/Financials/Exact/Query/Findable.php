@@ -115,6 +115,58 @@ trait Findable
 
         return $this->collectionFromResult($result, $headers);
     }
+    
+    public function BulkFilter($filter, $expand = '', $select = '', $callback, $system_query_options = null, array $headers = []){
+        $originalDivision = $this->connection()->getDivision();
+
+        if ($this->isFillable('Division') && preg_match("@Division[\t\r\n ]+eq[\t\r\n ]+([0-9]+)@i", $filter, $divisionId)) {
+            $this->connection()->setDivision($divisionId[1]); // Fix division
+        }
+
+        $request = [];
+        if ( !empty($filter)) {
+            $request ['$filter'] = $filter;
+        }
+        if (strlen($expand) > 0) {
+            $request['$expand'] = $expand;
+        }
+        if (strlen($select) > 0) {
+            $request['$select'] = $select;
+        }
+        if (is_array($system_query_options)) {
+            // merge in other options
+            // no verification of proper system query options
+            $request = array_merge($system_query_options, $request);
+        }
+
+        $result = $this->connection()->get($this->url(), $request, $headers);
+
+
+//        collectionFromResult function starts here
+        if (! empty($divisionId)) {
+            $this->connection()->setDivision($originalDivision); // Restore division
+        }
+
+        // If we have one result which is not an assoc array, make it the first element of an array for the
+        // collectionFromResult function so we always return a collection from filter
+        if ((bool) count(array_filter(array_keys($result), 'is_string'))) {
+            $result = [$result];
+        }
+
+        $callback($result);
+
+        while ($this->connection()->nextUrl !== null) {
+            $nextResult = $this->connection()->get($this->connection()->nextUrl, [], $headers);
+
+            // If we have one result which is not an assoc array, make it the first element of an array for the array_merge function
+            if ((bool) count(array_filter(array_keys($nextResult), 'is_string'))) {
+                $nextResult = [$nextResult];
+            }
+
+            $callback($nextResult);
+        }
+       return;
+    }
 
     /**
      * Returns the first Financial model in by applying $top=1 to the query string.
