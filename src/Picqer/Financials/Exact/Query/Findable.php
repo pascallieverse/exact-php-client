@@ -176,7 +176,7 @@ trait Findable
             $callback($collection);
 
             //max 300 calls per minute
-            sleep(1);
+            sleep(0.3);
         }
        return;
     }
