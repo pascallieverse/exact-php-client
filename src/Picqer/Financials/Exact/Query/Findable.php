@@ -153,17 +153,30 @@ trait Findable
             $result = [$result];
         }
 
-        $callback($result);
+        $collection = [];
+        foreach ($result as $r) {
+            $collection[] = new static($this->connection(), $r);
+        }
+        $callback($collection);
 
         while ($this->connection()->nextUrl !== null) {
             $nextResult = $this->connection()->get($this->connection()->nextUrl, [], $headers);
+
 
             // If we have one result which is not an assoc array, make it the first element of an array for the array_merge function
             if ((bool) count(array_filter(array_keys($nextResult), 'is_string'))) {
                 $nextResult = [$nextResult];
             }
 
-            $callback($nextResult);
+            $collection = [];
+            foreach ($nextResult as $r) {
+                $collection[] = new static($this->connection(), $r);
+            }
+
+            $callback($collection);
+
+            //max 300 calls per minute
+            sleep(0.3);
         }
        return;
     }
