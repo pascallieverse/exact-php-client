@@ -266,7 +266,10 @@ class Connection
      */
     public function get($url, array $params = [], array $headers = [])
     {
-        $url = $this->formatUrl($url, $url !== 'current/Me', $url == $this->nextUrl);
+        $urlbuild = parse_url($url);
+        if (empty($urlbuild['scheme'])) {
+            $url = $this->formatUrl($url, $url !== 'current/Me', $url == $this->nextUrl);
+        }
 
         try {
             $request = $this->createRequest('GET', $url, null, $params, $headers);
