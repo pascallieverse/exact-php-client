@@ -960,6 +960,11 @@ class EntityTest extends TestCase
         $this->performEntityTest(\Picqer\Financials\Exact\PlannedSalesReturnLine::class);
     }
 
+    public function testPlannedSalesReturnEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\PlannedSalesReturn::class);
+    }
+
     public function testPreferredMailboxForOperationEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\PreferredMailboxForOperation::class);
@@ -1258,6 +1263,11 @@ class EntityTest extends TestCase
     public function testScheduleEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\Schedule::class);
+    }
+
+    public function testSelectionCodeEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SelectionCode::class);
     }
 
     public function testSerialNumberEntity()
@@ -1688,6 +1698,51 @@ class EntityTest extends TestCase
     public function testWorkcenterEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\Workcenter::class);
+    }
+
+    public function testCustomerItemEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\CustomerItem::class);
+    }
+
+    public function testDeductibilityPercentageEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\DeductibilityPercentage::class);
+    }
+
+    public function testDigitalOrderPickingEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\DigitalOrderPicking::class);
+    }
+
+    public function testDigitalOrderPickingLineEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\DigitalOrderPickingLine::class);
+    }
+
+    public function testEmploymentEndReasonsOnFocusDateEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\EmploymentEndReasonsOnFocusDate::class);
+    }
+
+    public function testSalesChannelEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SalesChannel::class);
+    }
+
+    public function testSystemUserEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SystemUser::class);
+    }
+
+    public function testEventEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\Event::class);
+    }
+
+    public function testRequestAttachmentEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\RequestAttachment::class);
     }
 
     protected function performEntityTest($entityName)

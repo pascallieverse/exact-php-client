@@ -123,6 +123,11 @@ $connection->getMinutelyLimitReset(); // Retrieve the timestamp for when the min
 ```
 _Do note when you have no more minutely calls available, Exact only sends the Minutely Limit headers. So in that case, the Daily Limit headers will remain 0 until the minutely reset rolls over._
 
+There is basic support to `sleep` upon hitting the minutely rate limits. If you enable "Wait on minutely rate limit hit", the client will sleep until the limit is reset. Daily limits are not considered.
+
+```php
+$connection->setWaitOnMinutelyRateLimitHit(true);
+```
 
 ### Use the library to do stuff (examples)
 
@@ -131,55 +136,56 @@ _Do note when you have no more minutely calls available, Exact only sends the Mi
 $connection->setDivision(123456);
 
 // Create a new account
-$account = new Account($connection);
-$account->AddressLine1 = $customer['address'];
-$account->AddressLine2 = $customer['address2'];
-$account->City = $customer['city'];
-$account->Code = $customer['customerid'];
-$account->Country = $customer['country'];
+$account = new \Picqer\Financials\Exact\Account($connection);
+$account->AddressLine1 = 'Customers address line';
+$account->AddressLine2 = 'Customer address line 2';
+$account->City = 'Customer city';
+$account->Code = 'Customer code';
+$account->Country = 'Customer country';
 $account->IsSales = 'true';
-$account->Name = $customer['name'];
-$account->Postcode = $customer['zipcode'];
+$account->Name = 'Customer name';
+$account->Postcode = 'Customer postcode';
 $account->Status = 'C';
 $account->save();
 
 // Add a product in Exact
-$item = new Item($connection);
-$item->Code = $productcode;
-$item->CostPriceStandard = $costprice;
-$item->Description = $name;
+$item = new \Picqer\Financials\Exact\Item($connection);
+$item->Code = 'product code';
+$item->CostPriceStandard = 2.50;
+$item->Description = 'product description';
 $item->IsSalesItem = true;
 $item->SalesVatCode = 'VH';
 $item->save();
 
-// Retrieve an item
-$item = new Item($connection);
-$item->find(ID);
+// Retrieve an item by id
+$item = new \Picqer\Financials\Exact\Item($connection);
+$id = '097A82A9-6EF7-4EDC-8036-3F7559D9EF82';
+$item->find($id);
 
 // List items
-$item = new Item($connection);
+$item = new \Picqer\Financials\Exact\Item($connection);
 $item->get();
 
 // List items with filter (using a filter always returns a collection)
-$item = new Item($connection);
-$items = $item->filter("Code eq '$productcode'"); // Uses filters as described in Exact API docs (odata filters)
+$item = new \Picqer\Financials\Exact\Item($connection);
+$items = $item->filter("Code eq '$item->Code'"); // Uses filters as described in Exact API docs (odata filters)
 
 // Create new invoice with invoice lines
 $invoiceLines[] = [
-    'Item'      => $itemId,
-    'Quantity'  => $orderproduct['amount'],
-    'UnitPrice' => $orderproduct['price']
+    'Item'      => $item->ID,
+    'Quantity'  => 1,
+    'UnitPrice' => $item->CostPriceStandard
 ];
 
-$salesInvoice = new SalesInvoice($connection);
-$salesInvoice->InvoiceTo = $customer_code;
-$salesInvoice->OrderedBy = $customer_code;
-$salesInvoice->YourRef = $orderId;
+$salesInvoice = new \Picqer\Financials\Exact\SalesInvoice($connection);
+$salesInvoice->InvoiceTo = $account->ID;
+$salesInvoice->OrderedBy = $account->ID;
+$salesInvoice->YourRef = 'Invoice reference';
 $salesInvoice->SalesInvoiceLines = $invoiceLines;
 $salesInvoice->save();
 
 // Print and email the invoice
-$printedInvoice = new PrintedSalesInvoice($connection);
+$printedInvoice = new \Picqer\Financials\Exact\PrintedSalesInvoice($connection);
 $printedInvoice->InvoiceID = $salesInvoice->InvoiceID;
 $printedInvoice->SendEmailToCustomer = true;
 $printedInvoice->SenderEmailAddress = "from@example.com";
@@ -219,13 +225,13 @@ Examples:
 
 Return only the EntryID and FinancialYear.
 ```php
-$test = new GeneralJournalEntry($connection);
+$test = new \Picqer\Financials\Exact\GeneralJournalEntry($connection);
 var_dump($test->filter('', '', 'EntryID, FinancialYear'));
 ```
 
 The $top=1 is added like this:
 ```php
-$test = new GeneralJournalEntry($connection);
+$test = new \Picqer\Financials\Exact\GeneralJournalEntry($connection);
 var_dump($test->filter('', '', '', ['$top'=> 1]));
 ```
 

@@ -11,7 +11,7 @@ trait Findable
      */
     abstract public function connection();
 
-    abstract public function isFillable($key);
+    abstract protected function isFillable($key);
 
     /**
      * @return string
@@ -58,7 +58,7 @@ trait Findable
      * @param string $code the value to search for
      * @param string $key  the key being searched (defaults to 'Code')
      *
-     * @return string (guid)
+     * @return string|void (guid)
      */
     public function findId($code, $key = 'Code')
     {
@@ -92,9 +92,10 @@ trait Findable
         }
 
         $request = [];
-        if ( !empty($filter)) {
-            $request ['$filter'] = $filter;
+        if (! empty($filter)) {
+            $request['$filter'] = $filter;
         }
+
         if (strlen($expand) > 0) {
             $request['$expand'] = $expand;
         }
@@ -186,9 +187,20 @@ trait Findable
      *
      * @return \Picqer\Financials\Exact\Model|null
      */
-    public function first()
+    public function first($filter = '', $expand = '', $select = '', $system_query_options = null, array $headers = [])
     {
-        $results = $this->filter('', '', '', ['$top'=> 1]);
+        $query_options = [
+            '$top'=> 1,
+        ];
+
+        if (is_array($system_query_options)) {
+            // Remove this option, we only want 1 record
+            unset($system_query_options['$top']);
+
+            $query_options = array_merge($query_options, $system_query_options);
+        }
+
+        $results = $this->filter($filter, $expand, $select, $query_options, $headers);
         $result = is_array($results) && count($results) > 0 ? $results[0] : null;
 
         return $result;
