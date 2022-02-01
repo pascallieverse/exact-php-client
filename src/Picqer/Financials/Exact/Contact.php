@@ -17,10 +17,7 @@ namespace Picqer\Financials\Exact;
  * @property string $AddressStreet Street name of the address
  * @property string $AddressStreetNumber Street number of the address
  * @property string $AddressStreetNumberSuffix Street number suffix of the address
- * @property int $AllowMailing Obsolete
  * @property string $BirthDate Birth date
- * @property string $BirthName Obsolete. Please don't use this field anymore as it may overwrite LastName.
- * @property string $BirthNamePrefix Obsolete. Please don't use this field anymore as it may overwrite MiddleName.
  * @property string $BirthPlace Birth place
  * @property string $BusinessEmail Email address of the contact
  * @property string $BusinessFax Fax of the contact
@@ -65,7 +62,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Person Reference to the personal information of this contact such as name, gender, address etc.
  * @property string $Phone Phone of the contact
  * @property string $PhoneExtension Phone extension of the contact
- * @property binary $Picture This field is write-only. The picture can be downloaded through PictureUrl and PictureThumbnailUrl.
+ * @property string $Picture This field is write-only. The picture can be downloaded through PictureUrl and PictureThumbnailUrl.
  * @property string $PictureName Filename of the picture
  * @property string $PictureThumbnailUrl Url to retrieve the picture thumbnail
  * @property string $PictureUrl Url to retrieve the picture
@@ -96,10 +93,7 @@ class Contact extends Model
         'AddressStreet',
         'AddressStreetNumber',
         'AddressStreetNumberSuffix',
-        'AllowMailing',
         'BirthDate',
-        'BirthName',
-        'BirthNamePrefix',
         'BirthPlace',
         'BusinessEmail',
         'BusinessFax',

@@ -7,7 +7,7 @@ namespace Picqer\Financials\Exact;
  *
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=PurchasePurchaseInvoiceLines
  *
- * @property string $ID A guid that uniqely identifies the invoice line.
+ * @property string $ID A guid that uniquely identifies the purchase invoice line.
  * @property float $Amount In a GET request the line amount is always returned excluding VAT.In a POST request the line amount has to be submitted either including or excluding the VAT amount. This depends on the type (including or excluding) of the VAT code.
  * @property string $CostCenter The code of the cost center that is linked to this invoice line.
  * @property string $CostUnit The code of the cost unit that is linked to this invoice line.
@@ -17,7 +17,6 @@ namespace Picqer\Financials\Exact;
  * @property string $Expense Expense related to the Work Breakdown Structure of the selected project. Only available with a professional service license
  * @property string $ExpenseDescription Description of expense. Only available with a professional service license
  * @property string $InvoiceID The unique identifier of the purchase invoice this line belongs to.
- * @property int $InvoiceType Purchase invoice type.
  * @property string $Item Guid that identifies the purchase item. In a POST request either the Item or the PurchaseOrderLine has to be supplied.
  * @property string $ItemUnit The default unit of the purchased item.
  * @property int $LineNumber The sequence number of the line.
@@ -51,7 +50,6 @@ class PurchaseInvoiceLine extends Model
         'Expense',
         'ExpenseDescription',
         'InvoiceID',
-        'InvoiceType',
         'Item',
         'ItemUnit',
         'LineNumber',

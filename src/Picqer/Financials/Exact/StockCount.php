@@ -8,7 +8,6 @@ namespace Picqer\Financials\Exact;
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=InventoryStockCounts
  *
  * @property string $StockCountID Primary key
- * @property string $CountedBy Stock count user
  * @property string $Created Creation date
  * @property string $Creator User ID of creator
  * @property string $CreatorFullName Name of creator
@@ -24,7 +23,7 @@ namespace Picqer\Financials\Exact;
  * @property int $Source Source of stock count entry: 1-Manual entry, 2-Import, 3-Stock count, 4-Web service
  * @property int $Status Stock count status: 12-Draft, 21-Processed
  * @property string $StockCountDate Stock count date
- * @property StockCountLines $StockCountLines Collection of stock count lines
+ * @property StockCountLine[] $StockCountLines Collection of stock count lines
  * @property int $StockCountNumber Human readable id of the stock count
  * @property string $Warehouse Warehouse
  * @property string $WarehouseCode Code of Warehouse
@@ -39,7 +38,6 @@ class StockCount extends Model
 
     protected $fillable = [
         'StockCountID',
-        'CountedBy',
         'Created',
         'Creator',
         'CreatorFullName',
