@@ -325,7 +325,7 @@ class Connection
      */
     public function upload($topic, $body)
     {
-        $url = $this->getBaseUrl() . '/docs/XMLUpload.aspx?Topic=' . $topic . '&_Division=' . $this->getDivision();
+        $url = $this->getBaseUrl() . '/docs/XMLUpload.aspx?Topic=' . $topic . '&_Division_=' . $this->getDivision();
 
         try {
             $request = $this->createRequest('POST', $url, $body);
@@ -530,9 +530,13 @@ class Connection
             Psr7\Message::rewindBody($response);
             $simpleXml = new \SimpleXMLElement($response->getBody()->getContents());
 
-            foreach ($simpleXml->Messages as $message) {
-                $keyAlt = (string) $message->Message->Topic->Data->attributes()['keyAlt'];
-                $answer[$keyAlt] = (string) $message->Message->Description;
+            foreach ($simpleXml->Messages->Message as $message) {
+                if (null === $message->Topic->Data->attributes()) {
+                    $answer[] = (string) $message->Description;
+                } else {
+                    $keyAlt = (string) $message->Topic->Data->attributes()['keyAlt'];
+                    $answer[$keyAlt] = (string) $message->Description;
+                }
             }
 
             return $answer;
@@ -911,5 +915,13 @@ class Connection
     public function setWaitOnMinutelyRateLimitHit(bool $waitOnMinutelyRateLimitHit)
     {
         $this->waitOnMinutelyRateLimitHit = $waitOnMinutelyRateLimitHit;
+    }
+
+    private function requiresDivisionInRequestUrl(string $endpointUrl): bool
+    {
+        return ! in_array($endpointUrl, [
+            (new SystemUser($this))->url(),
+            (new Me($this))->url(),
+        ], true);
     }
 }

@@ -62,6 +62,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Modified Last modified date.
  * @property string $Modifier User ID of modifier.
  * @property string $ModifierFullName Name of modifier.
+ * @property int $OrderNumber Order number of the linked transaction.
  * @property int $PaymentBatchNumber Number assigned during the of processing payments. When payments are processed a bank export file is created. This file contains one or more batches that contain one or more payments. Each batch gets a sequence number that is stored for each payment in that batch.
  * @property string $PaymentCondition Payment condition of the linked transaction.
  * @property string $PaymentConditionDescription Description of the payment condition.
@@ -93,8 +94,10 @@ namespace Picqer\Financials\Exact;
  * @property int $TransactionType Type of the linked transaction.
  * @property string $YourRef Invoice number of the supplier. In case the payment belongs to a bank entry line and is matched with one invoice, YourRef is filled with the YourRef of this invoice.
  */
-class SyncPaymentTerm extends Payment
+class SyncPaymentTerm extends Model
 {
+    use Query\Findable;
+
     protected $primaryKey = 'Timestamp';
 
     protected $fillable = [
@@ -153,6 +156,7 @@ class SyncPaymentTerm extends Payment
         'Modified',
         'Modifier',
         'ModifierFullName',
+        'OrderNumber',
         'PaymentBatchNumber',
         'PaymentCondition',
         'PaymentConditionDescription',

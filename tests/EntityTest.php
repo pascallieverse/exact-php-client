@@ -1630,6 +1630,11 @@ class EntityTest extends TestCase
         $this->performEntityTest(\Picqer\Financials\Exact\TimeTransaction::class);
     }
 
+    public function testProjectTimeTransactionEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ProjectTimeTransaction::class);
+    }
+
     public function testTransactionLineEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\TransactionLine::class);
@@ -1863,6 +1868,151 @@ class EntityTest extends TestCase
     public function testWBSActivityEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\WBSActivity::class);
+    }
+
+    public function testEmploymentContractFlexPhasesOnFocusDate()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\EmploymentContractFlexPhasesOnFocusDate::class);
+    }
+
+    public function testReasonForLogistic()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ReasonForLogistic::class);
+    }
+
+    public function testReasonForLogisticsLinkType()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ReasonForLogisticsLinkType::class);
+    }
+
+    public function testStorageLocationStockPosition()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\StorageLocationStockPosition::class);
+    }
+
+    public function testTimeCostTransaction()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\TimeCostTransaction::class);
+    }
+
+    public function testWBSExpense()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\WBSExpense::class);
+    }
+
+    public function testIncoterm()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\Incoterm::class);
+    }
+
+    public function testInventoryItemWarehouse()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\InventoryItemWarehouse::class);
+    }
+
+    public function testLogisticsReasonsCodes()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\LogisticsReasonsCodes::class);
+    }
+
+    public function testProjectWBS()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ProjectWBS::class);
+    }
+
+    public function testReasonCodesLinkType()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ReasonCodesLinkType::class);
+    }
+
+    public function testRecentHoursByNumberOfWeeks()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\RecentHoursByNumberOfWeeks::class);
+    }
+
+    public function testSyncInventoryStockPosition()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncInventoryStockPosition::class);
+    }
+
+    public function testSyncProjects()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncProjects::class);
+    }
+
+    public function testCustomField()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\CustomField::class);
+    }
+
+    public function testDropShipment()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\DropShipment::class);
+    }
+
+    public function testDropShipmentLine()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\DropShipmentLine::class);
+    }
+
+    public function testHrmDivision()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\HrmDivision::class);
+    }
+
+    public function testPurchaseReturn()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\PurchaseReturn::class);
+    }
+
+    public function testPurchaseReturnLine()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\PurchaseReturnLine::class);
+    }
+
+    public function testSyncDeleted()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncDeleted::class);
+    }
+
+    public function testSyncProject()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncProject::class);
+    }
+
+    public function testSyncProjectWBS()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncProjectWBS::class);
+    }
+
+    public function testSyncStorageLocationStockPosition()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncStorageLocationStockPosition::class);
+    }
+
+    public function testSyncSubscription()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncSubscription::class);
+    }
+
+    public function testSyncSubscriptionLine()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncSubscriptionLine::class);
+    }
+
+    public function testSyncTimeCostTransaction()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\SyncTimeCostTransaction::class);
+    }
+
+    public function testUpdateCustomField()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\UpdateCustomField::class);
+    }
+
+    public function testManufacturingTimeTransaction()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ManufacturingTimeTransaction::class);
     }
 
     protected function performEntityTest($entityName)

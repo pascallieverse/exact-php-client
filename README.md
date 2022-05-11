@@ -195,6 +195,16 @@ $printedInvoice->ExtraText = "Some additional text";
 $printedInvoice->save();
 ```
 
+### Use generators to prevent memory overflow
+This package allows you to interact with the Exact API using PHP [generators](https://www.php.net/manual/en/language.generators.overview.php).
+This may be useful when you're retrieving large sets of data that are too big to load into memory all at once.
+
+```php
+$item = new \Picqer\Financials\Exact\Item($connection);
+$item->getAsGenerator();
+$item->filterAsGenerator('IsWebshopItem eq 1');
+```
+
 ## Connect to other Exact country than NL
 
 Choose the right base URL according to [Exact developers guide](https://developers.exactonline.com/#Exact%20Online%20sites.html)

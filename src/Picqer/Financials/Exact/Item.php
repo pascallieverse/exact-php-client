@@ -28,6 +28,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Created Creation date
  * @property string $Creator User ID of creator
  * @property string $CreatorFullName Name of creator
+ * @property string $CustomField Custom field endpoint
  * @property string $Description Description of the item
  * @property int $Division Division code
  * @property string $EndDate Together with StartDate this determines if the item is active
@@ -100,6 +101,7 @@ namespace Picqer\Financials\Exact;
  * @property string $SalesVatCodeDescription Description of SalesVatCode
  * @property string $SearchCode Search code of the item
  * @property int $SecurityLevel Security level (0 - 100)
+ * @property float $StandardSalesPrice Standard sales price
  * @property string $StartDate Together with EndDate this determines if the item is active
  * @property string $StatisticalCode Statistical code
  * @property float $StatisticalNetWeight Statistical net weight
@@ -138,6 +140,7 @@ class Item extends Model
         'Created',
         'Creator',
         'CreatorFullName',
+        'CustomField',
         'Description',
         'Division',
         'EndDate',
@@ -210,6 +213,7 @@ class Item extends Model
         'SalesVatCodeDescription',
         'SearchCode',
         'SecurityLevel',
+        'StandardSalesPrice',
         'StartDate',
         'StatisticalCode',
         'StatisticalNetWeight',
