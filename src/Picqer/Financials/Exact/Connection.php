@@ -18,92 +18,92 @@ class Connection
     /**
      * @var string
      */
-    private $baseUrl = 'https://start.exactonline.nl';
+    protected $baseUrl = 'https://start.exactonline.nl';
 
     /**
      * @var string
      */
-    private $apiUrl = '/api/v1';
+    protected $apiUrl = '/api/v1';
 
     /**
      * @var string
      */
-    private $authUrl = '/api/oauth2/auth';
+    protected $authUrl = '/api/oauth2/auth';
 
     /**
      * @var string
      */
-    private $tokenUrl = '/api/oauth2/token';
+    protected $tokenUrl = '/api/oauth2/token';
 
     /**
      * @var mixed
      */
-    private $exactClientId;
+    protected $exactClientId;
 
     /**
      * @var mixed
      */
-    private $exactClientSecret;
+    protected $exactClientSecret;
 
     /**
      * @var mixed
      */
-    private $authorizationCode;
+    protected $authorizationCode;
 
     /**
      * @var mixed
      */
-    private $accessToken;
+    protected $accessToken;
 
     /**
      * @var int the Unix timestamp at which the access token expires
      */
-    private $tokenExpires;
+    protected $tokenExpires;
 
     /**
      * @var mixed
      */
-    private $refreshToken;
+    protected $refreshToken;
 
     /**
      * @var mixed
      */
-    private $redirectUrl;
+    protected $redirectUrl;
 
     /**
      * @var string
      */
-    private $state = null;
+    protected $state = null;
 
     /**
      * @var mixed
      */
-    private $division;
+    protected $division;
 
     /**
      * @var Client|null
      */
-    private $client;
+    protected $client;
 
     /**
      * @var callable(Connection)
      */
-    private $tokenUpdateCallback;
+    protected $tokenUpdateCallback;
 
     /**
      * @var callable(Connection)
      */
-    private $acquireAccessTokenLockCallback;
+    protected $acquireAccessTokenLockCallback;
 
     /**
      * @var callable(Connection)
      */
-    private $acquireAccessTokenUnlockCallback;
+    protected $acquireAccessTokenUnlockCallback;
 
     /**
      * @var callable(Connection)
      */
-    private $refreshAccessTokenCallback;
+    protected $refreshAccessTokenCallback;
 
     /**
      * @var callable[]
@@ -148,12 +148,12 @@ class Connection
     /**
      * @var bool
      */
-    private $waitOnMinutelyRateLimitHit = false;
+    protected $waitOnMinutelyRateLimitHit = false;
 
     /**
      * @return Client
      */
-    private function client()
+    protected function client()
     {
         if ($this->client) {
             return $this->client;
@@ -236,7 +236,7 @@ class Connection
      *
      * @return Request
      */
-    private function createRequest($method, $endpoint, $body = null, array $params = [], array $headers = [])
+    protected function createRequest($method, $endpoint, $body = null, array $params = [], array $headers = [])
     {
         // Add default json headers to the request
         $headers = array_merge($headers, [
@@ -276,7 +276,7 @@ class Connection
     public function get($url, array $params = [], array $headers = [])
     {
         $this->waitIfMinutelyRateLimitHit();
-        
+
         $urlbuild = parse_url($url);
         if (empty($urlbuild['scheme'])) {
             $url = $this->formatUrl($url, $url !== 'current/Me', $url == $this->nextUrl);
@@ -474,7 +474,7 @@ class Connection
      *
      * @return mixed
      */
-    private function parseResponse(Response $response, $returnSingleIfPossible = true)
+    protected function parseResponse(Response $response, $returnSingleIfPossible = true)
     {
         try {
             $this->extractRateLimits($response);
@@ -519,7 +519,7 @@ class Connection
      *
      * @return mixed
      */
-    private function parseResponseXml(Response $response)
+    protected function parseResponseXml(Response $response)
     {
         try {
             if ($response->getStatusCode() === 204) {
@@ -548,7 +548,7 @@ class Connection
     /**
      * @return mixed
      */
-    private function getCurrentDivisionNumber()
+    protected function getCurrentDivisionNumber()
     {
         if (empty($this->division)) {
             $me = new Me($this);
@@ -574,7 +574,7 @@ class Connection
         return $this->accessToken;
     }
 
-    private function acquireAccessToken()
+    protected function acquireAccessToken()
     {
         try {
             if (is_callable($this->acquireAccessTokenLockCallback)) {
@@ -643,7 +643,7 @@ class Connection
      *
      * @return int
      */
-    private function getTimestampFromExpiresIn($expiresIn)
+    protected function getTimestampFromExpiresIn($expiresIn)
     {
         if (! ctype_digit($expiresIn)) {
             throw new \InvalidArgumentException('Function requires a numeric expires value');
@@ -668,7 +668,7 @@ class Connection
         $this->tokenExpires = $tokenExpires;
     }
 
-    private function tokenHasExpired()
+    protected function tokenHasExpired()
     {
         if (empty($this->tokenExpires)) {
             return true;
@@ -677,7 +677,7 @@ class Connection
         return ($this->tokenExpires - 10) < time();
     }
 
-    private function formatUrl($endPoint, $includeDivision = true, $formatNextUrl = false)
+    protected function formatUrl($endPoint, $includeDivision = true, $formatNextUrl = false)
     {
         if ($formatNextUrl) {
             return $endPoint;
@@ -752,7 +752,7 @@ class Connection
      *
      * @throws ApiException
      */
-    private function parseExceptionForErrorMessages(Exception $e)
+    protected function parseExceptionForErrorMessages(Exception $e)
     {
         if (! $e instanceof BadResponseException) {
             throw new ApiException($e->getMessage(), 0, $e);
@@ -838,7 +838,7 @@ class Connection
     /**
      * @return string
      */
-    private function getApiUrl()
+    protected function getApiUrl()
     {
         return $this->baseUrl . $this->apiUrl;
     }
@@ -846,7 +846,7 @@ class Connection
     /**
      * @return string
      */
-    private function getTokenUrl()
+    protected function getTokenUrl()
     {
         return $this->baseUrl . $this->tokenUrl;
     }
@@ -886,7 +886,7 @@ class Connection
         $this->tokenUrl = $tokenUrl;
     }
 
-    private function extractRateLimits(Response $response)
+    protected function extractRateLimits(Response $response)
     {
         $this->dailyLimit = (int) $response->getHeaderLine('X-RateLimit-Limit');
         $this->dailyLimitRemaining = (int) $response->getHeaderLine('X-RateLimit-Remaining');
@@ -917,7 +917,7 @@ class Connection
         $this->waitOnMinutelyRateLimitHit = $waitOnMinutelyRateLimitHit;
     }
 
-    private function requiresDivisionInRequestUrl(string $endpointUrl): bool
+    protected function requiresDivisionInRequestUrl(string $endpointUrl): bool
     {
         return ! in_array($endpointUrl, [
             (new SystemUser($this))->url(),
