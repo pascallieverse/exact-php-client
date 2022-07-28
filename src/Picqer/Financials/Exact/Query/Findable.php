@@ -125,7 +125,7 @@ trait Findable
         return $this->collectionFromResultAsGenerator($result, $headers);
     }
     
-    public function BulkFilter($filter, $expand = '', $select = '', $callback, $system_query_options = null, array $headers = []){
+    public function BulkFilter($filter, $callback, $expand = '', $select = '', $system_query_options = null, array $headers = []){
         $originalDivision = $this->connection()->getDivision();
 
         if ($this->isFillable('Division') && preg_match("@Division[\t\r\n ]+eq[\t\r\n ]+([0-9]+)@i", $filter, $divisionId)) {
