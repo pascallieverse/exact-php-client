@@ -16,6 +16,7 @@ namespace Picqer\Financials\Exact;
  * @property string $CostUnit Reference to Cost unit
  * @property string $CostUnitDescription Description of CostUnit
  * @property string $CustomerItemCode Code the customer uses for this item
+ * @property string $CustomField Custom field endpoint. Provided only for the Exact Online Premium users.
  * @property string $DeliveryDate Delivery date of this line
  * @property int $DeliveryStatus Shipping status of the sales order line. 12=Open, 20=Partial, 21=Complete, 45=Cancelled
  * @property string $Description Description
@@ -70,6 +71,7 @@ class SalesOrderLine extends Model
         'CostUnit',
         'CostUnitDescription',
         'CustomerItemCode',
+        'CustomField',
         'DeliveryDate',
         'DeliveryStatus',
         'Description',

@@ -30,6 +30,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Created Creation date
  * @property string $Creator User ID of the creator
  * @property string $CreatorFullName Name of the creator
+ * @property string $CustomField Custom field endpoint. Provided only for the Exact Online Premium users.
  * @property int $Division Division code
  * @property string $Email Email address of the contact
  * @property string $EndDate End date
@@ -72,6 +73,8 @@ namespace Picqer\Financials\Exact;
  * @property string $StartDate Start date
  * @property string $State State
  * @property string $Title Title
+ * @property string $TitleAbbreviation TitleAbbreviation
+ * @property string $TitleDescription TitleDescription
  */
 class SyncContact extends Model
 {
@@ -103,6 +106,7 @@ class SyncContact extends Model
         'Created',
         'Creator',
         'CreatorFullName',
+        'CustomField',
         'Division',
         'Email',
         'EndDate',
@@ -145,6 +149,8 @@ class SyncContact extends Model
         'StartDate',
         'State',
         'Title',
+        'TitleAbbreviation',
+        'TitleDescription',
     ];
 
     protected $url = 'sync/CRM/Contacts';

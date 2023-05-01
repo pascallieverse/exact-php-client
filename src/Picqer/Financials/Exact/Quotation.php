@@ -9,6 +9,8 @@ namespace Picqer\Financials\Exact;
  *
  * @property string $QuotationID Identifier of the quotation
  * @property float $AmountDC Amount in the default currency of the company
+ * @property float $AmountDiscount Discount Amount in the currency of the transaction
+ * @property float $AmountDiscountExclVat Discount Amount excluding VAT in the currency of the transaction
  * @property float $AmountFC Amount in the currency of the transaction
  * @property string $CloseDate Date on which the customer accepted or rejected the quotation version
  * @property string $ClosingDate Date on which you expect to close/win the deal
@@ -22,6 +24,7 @@ namespace Picqer\Financials\Exact;
  * @property string $DeliveryAccountContactFullName Full name of the delivery account contact person
  * @property string $DeliveryAccountName The name of the delivery account
  * @property string $DeliveryAddress The id of the delivery address
+ * @property string $DeliveryDate The date of the delivery
  * @property string $Description The description of the quotation
  * @property int $Division Division code
  * @property string $Document Document linked to the quotation
@@ -45,22 +48,27 @@ namespace Picqer\Financials\Exact;
  * @property string $OrderAccountContact The contact person of the order account
  * @property string $OrderAccountContactFullName Full name of the order account contact person
  * @property string $OrderAccountName The name of the order account
+ * @property string $PaymentCondition Payment condition code
+ * @property string $PaymentConditionDescription Payment condition description
  * @property string $Project The project linked to the quotation
  * @property string $ProjectCode The code of the project
  * @property string $ProjectDescription The description of the project
  * @property string $QuotationDate Date on which the quotation version is entered or printed. Both during entering and printing this date can be adjusted
  * @property QuotationLine[] $QuotationLines The collection of quotation lines
  * @property int $QuotationNumber Unique number to indentify the quotation. By default this number is based on the setting for first available number
+ * @property QuotationOrderChargeLine[] $QuotationOrderChargeLines Collection of shipping cost and order charge lines. Only applicable in POST. Ignore the URL returns in GET.
  * @property string $Remarks Extra text that can be added to the quotation
  * @property string $SalesChannel ID of Sales channel.
  * @property string $SalesChannelCode Code of Sales channel.
  * @property string $SalesChannelDescription Description of Sales channel.
  * @property string $SalesPerson The user that is responsible for the quotation version
  * @property string $SalesPersonFullName Full name of the sales person
- * @property string $SelectionCode ID of selection code. Only supported by the Advanced and Premium editions for Wholesale & Distribution and Manufacturing
+ * @property string $SelectionCode ID of selection code. Only supported by the Plus, Professional and Premium for Wholesale & Distribution and Manufacturing
  * @property string $SelectionCodeCode Code of selection code
  * @property string $SelectionCodeDescription Description of selection code
- * @property int $Status The status of the quotation version. 5 = Rejected, 6 = Reviewed and closed, 10 = Recovery, 20 = Draft, 25 = Open, 35 = Processing... , 40 = Printed, 50 = Accepted
+ * @property string $ShippingMethod Shipping method ID
+ * @property string $ShippingMethodDescription Shipping method description
+ * @property int $Status The status of the quotation version. 5 = Rejected, 6 = Reviewed and closed, 10 = Recovery, 20 = Draft, 25 = Open, 35 = Processing... , 40 = Printed, 50 = Accepted, 60 = Awaiting online acceptance, 70 = Accepted but an error occurred during processing
  * @property string $StatusDescription The description of the status
  * @property float $VATAmountFC Total VAT amount in the currency of the transaction
  * @property int $VersionNumber Number indicating the different reviews which are made for the quotation
@@ -76,6 +84,8 @@ class Quotation extends Model
     protected $fillable = [
         'QuotationID',
         'AmountDC',
+        'AmountDiscount',
+        'AmountDiscountExclVat',
         'AmountFC',
         'CloseDate',
         'ClosingDate',
@@ -89,6 +99,7 @@ class Quotation extends Model
         'DeliveryAccountContactFullName',
         'DeliveryAccountName',
         'DeliveryAddress',
+        'DeliveryDate',
         'Description',
         'Division',
         'Document',
@@ -112,12 +123,15 @@ class Quotation extends Model
         'OrderAccountContact',
         'OrderAccountContactFullName',
         'OrderAccountName',
+        'PaymentCondition',
+        'PaymentConditionDescription',
         'Project',
         'ProjectCode',
         'ProjectDescription',
         'QuotationDate',
         'QuotationLines',
         'QuotationNumber',
+        'QuotationOrderChargeLines',
         'Remarks',
         'SalesChannel',
         'SalesChannelCode',
@@ -127,6 +141,8 @@ class Quotation extends Model
         'SelectionCode',
         'SelectionCodeCode',
         'SelectionCodeDescription',
+        'ShippingMethod',
+        'ShippingMethodDescription',
         'Status',
         'StatusDescription',
         'VATAmountFC',

@@ -33,6 +33,7 @@ namespace Picqer\Financials\Exact;
  * @property float $Quantity Quantity
  * @property string $SalesUnit Default sales unit of the item
  * @property string $Unit Unit
+ * @property string $UnitDescription Description of the unit
  */
 class SalesPriceListVolumeDiscount extends Model
 {
@@ -65,6 +66,7 @@ class SalesPriceListVolumeDiscount extends Model
         'Quantity',
         'SalesUnit',
         'Unit',
+        'UnitDescription',
     ];
 
     protected $url = 'sales/SalesPriceListVolumeDiscounts';

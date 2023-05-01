@@ -14,6 +14,7 @@ namespace Picqer\Financials\Exact;
  * @property string $AccountName Name of Account
  * @property bool $AllowAdditionalInvoicing Indicates if additional invoice is allowed for project
  * @property bool $BlockEntry Block time and cost entries
+ * @property bool $BlockPlanning Block planning and reservations
  * @property bool $BlockPurchasing Block purchasing
  * @property bool $BlockRebilling Block rebilling
  * @property float $BudgetedAmount Budgeted amount of sales in the default currency of the company
@@ -30,6 +31,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Creator User ID of creator
  * @property string $CreatorFullName Name of creator
  * @property string $CustomerPOnumber Used only for PSA to store the customer's PO number
+ * @property string $CustomField Custom field endpoint. Provided only for the Exact Online Premium users.
  * @property string $Description Description of the project
  * @property int $Division Division code
  * @property string $DivisionName Name of Division
@@ -50,6 +52,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Modifier User ID of modifier
  * @property string $ModifierFullName Name of modifier
  * @property string $Notes For additional information about projects
+ * @property string $PaymentCondition Payment condition code for this project
  * @property string $PrepaidItem Used only for PSA. This item is used for prepaid invoicing. If left empty, the functionality relies on a setting
  * @property string $PrepaidItemDescription Description of PrepaidItem
  * @property int $PrepaidType PrepaidType: 1-Retainer, 2-Hour type bundle
@@ -76,6 +79,7 @@ class SyncProject extends Model
         'AccountName',
         'AllowAdditionalInvoicing',
         'BlockEntry',
+        'BlockPlanning',
         'BlockPurchasing',
         'BlockRebilling',
         'BudgetedAmount',
@@ -92,6 +96,7 @@ class SyncProject extends Model
         'Creator',
         'CreatorFullName',
         'CustomerPOnumber',
+        'CustomField',
         'Description',
         'Division',
         'DivisionName',
@@ -112,6 +117,7 @@ class SyncProject extends Model
         'Modifier',
         'ModifierFullName',
         'Notes',
+        'PaymentCondition',
         'PrepaidItem',
         'PrepaidItemDescription',
         'PrepaidType',
